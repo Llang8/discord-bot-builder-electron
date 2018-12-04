@@ -1,6 +1,13 @@
-# empty-project
+# DiscordBotBuilder
 
-> An electron-vue project
+> Discord Bot Builder is a tool for easily creating and managing discord bots without needing to touch any code. This project is for people who want a discord bot on their server but do not want to learn how to code.
+
+## Download the executable
+> Download the latest version here: [no release yet]
+
+---
+
+## Set up as a developer
 
 #### Build Setup
 
@@ -18,5 +25,3 @@ npm run build
 ```
 
 ---
-
-This project was generated with [electron-vue](https://github.com/SimulatedGREG/electron-vue)@[8fae476](https://github.com/SimulatedGREG/electron-vue/tree/8fae4763e9d225d3691b627e83b9e09b56f6c935) using [vue-cli](https://github.com/vuejs/vue-cli). Documentation about the original structure can be found [here](https://simulatedgreg.gitbooks.io/electron-vue/content/index.html).
