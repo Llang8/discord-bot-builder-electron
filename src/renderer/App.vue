@@ -23,7 +23,6 @@
     </div>
 </template>
 <script>
-const remote = require('electron').remote;
 
 export default {
     data() {
@@ -124,7 +123,7 @@ export default {
 #main {
     transition: margin-left .5s;
     padding: 20px;
-    margin-left: 125px;
+    margin-left: 50px;
 }
 
 .title {

@@ -6,8 +6,7 @@
         <bot-commands v-if='discordPageNum == 2' style='max-height: 250px;'></bot-commands>
         <button @click='prevPage' class='btn btn-secondary pageControl' id='previous' v-if='discordPageNum != 1'>Previous</button>  
         <button @click='nextPage' class='btn btn-secondary pageControl' id='next' v-if='discordPageNum != 3'>Next</button>
-        <br><br>
-        <button @click='createBot' class='btn btn-secondary pageControl' id='createBot'>Create Bot</button>
+        <button @click='createBot' class='btn btn-secondary pageControl' id='createBot'><i class="far fa-save"></i> Save Bot</button>
     </div>
 </template>
 <script>
@@ -64,7 +63,8 @@ export default {
     text-align: center !important;
 }
 #createBot {
-    right: 5px;
+    right: 25px;
+    margin-right: 72px;
 }
 #next {
     right: 25%;

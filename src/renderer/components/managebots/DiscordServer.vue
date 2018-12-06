@@ -34,7 +34,10 @@ export default {
             }
         },
         editBot() {
-            console.log('Bot ' + this.botInfo.botName + ' editing');
+            console.log('Bot ' + this.botInfo);
+            this.$store.state.botConfig = this.botInfo;
+            // Switch page to discord
+            this.$router.push({path: 'discord'})
         }
     }
 }
@@ -43,14 +46,16 @@ export default {
 #discordServer {
     width: 400px;
     height: 200px;
-    background-color: lightgray;
-    margin: 8px 8px 8px 8px;
+    background-color: var(--form-background-color);
+    border-color: white;
+    border-radius: 5px;
+    border: solid;
+    border-width: 1px;
+    margin: 10px;
     display: inline-block;
-    color: black;
-    -webkit-box-shadow: 5px 5px 16px -2px rgba(0,0,0,0.72); 
-    box-shadow: 5px 5px 16px -2px rgba(0,0,0,0.72);
+    color: white;
     position: relative;
-    padding: 8px 8px 8px 8px;
+    padding: 2px 10px;
 }
 
 #serverName {

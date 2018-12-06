@@ -17,10 +17,11 @@ client.on('message', msg => {
   // Return from function if author is a bot. Ignore other bots.
   if ( msg.author.bot) return;
 
-  
   config.commands.forEach(presetCommand => {
-    if (presetCommand.command == command) {
-      (presetCommand.reply) ? msg.reply( presetCommand.response) : msg.channel.send(presetCommand.response);
+    if (presetCommand.commandName.toLowerCase() == command) {
+      presetCommand.actions.forEach(action => {
+        (action.type === "Reply to User") ? msg.reply( action.description) : msg.channel.send(action.description);
+      })
     }
   });
 

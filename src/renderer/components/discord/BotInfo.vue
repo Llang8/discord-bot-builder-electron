@@ -10,7 +10,6 @@
             <label for="commandIdentifier">Command Identifier</label>
             <input type="text" class="form-control" id="commandIdentifier" placeholder="This is the character or string that identifies that a message is a command." v-model="botConfig.commandIdentifier">
       </div>
-      <!-- <button @click="createBot" class="btn" style="color: black">Create Bot</button> -->
     </form>
 </template>
 <script>

@@ -32,8 +32,9 @@ export function stopBot() {
 }
 
 export function getBots() {
-    var data = fs.readFileSync(__dirname + '/../local/bots.txt', 'utf8');
-    var dataArr = data.split(',');
-    dataArr.pop();
-    return (dataArr);
+    var files = fs.readdirSync(__dirname + '/../local/discord', (err) => {
+        if(err) console.log(err);
+    });
+    console.log(files);
+    return (files);
 }

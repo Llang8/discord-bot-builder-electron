@@ -13,6 +13,6 @@ export const store = new Vuex.Store({
       commandIdentifier: '',
       commands: [],
     },
-    showCommandCreation: false,
+    showActionCreation: false,
   }
 })
