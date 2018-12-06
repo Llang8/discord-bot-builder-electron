@@ -11,11 +11,8 @@ export const store = new Vuex.Store({
       botDescription: '',
       token: '',
       commandIdentifier: '',
-      commands: [{
-          command: '',
-          response: '',
-          reply: false,
-      }]
-    }
+      commands: [],
+    },
+    showCommandCreation: false,
   }
 })

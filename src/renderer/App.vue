@@ -1,10 +1,5 @@
 <template>
     <div id='app'>
-    <header id='appHeader'>
-        <div class="option" id='close' @click='closeWindow'><i class='far fa-window-close'></i></div>
-        <div class="option" id='maximize' @click='toggleMax'><i class='far fa-window-maximize'></i></div>
-        <div class="option" id='minimize' @click='minimize'><i class='far fa-window-minimize'></i></div>
-    </header>
     <div id='mySidenav' class='sidenav'>
         <a href='javascript:void(0)' @click='toggleNav' >
             <i v-if='navOpen' class='closebtn fas fa-arrow-circle-left'></i>
@@ -33,7 +28,7 @@ const remote = require('electron').remote;
 export default {
     data() {
         return {
-            navOpen: true
+            navOpen: false
         }
     },
     methods: {
@@ -63,19 +58,6 @@ export default {
 
                 this.navOpen = true;
             }
-        },
-        closeWindow() {
-            var window = remote.getCurrentWindow();
-            console.log(window);
-            window.close();
-        },
-        toggleMax() {
-            var window = remote.getCurrentWindow();
-            window.isMaximized() ? window.unmaximize() : window.maximize();
-        },
-        minimize() {
-            var window = remote.getCurrentWindow();
-            window.minimize();
         }
 
     }
@@ -88,7 +70,7 @@ export default {
 /* The side navigation menu */
 .sidenav {
     height: 100%; /* 100% Full-height */
-    width: 125px; /* 0 width - change this with JavaScript */
+    width: 50px; /* 0 width - change this with JavaScript */
     position: fixed; /* Stay in place */
     z-index: 1; /* Stay on top */
     top: 0; /* Stay at the top */
@@ -97,17 +79,17 @@ export default {
     overflow-x: hidden; /* Disable horizontal scroll */
     padding-top: 10px; /* Place content 60px from the top */
     transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
-    margin-top: 30px;
 }
 
 /* The navigation menu links */
 .sidenav a {
     padding: 8px 8px 8px 8px;
     text-decoration: none;
-    font-size: 12px;
+    font-size: 24px;
     color: var(--main-text-color);
     display: block;
     transition: 0.3s;
+    text-align: center;
 }
 
 /* When you mouse over the navigation links, change their color */
@@ -157,6 +139,7 @@ export default {
     --hover-text-color: white;
     --main-header-color: rgb(50, 148, 194);
     --secondary-header-color: rgb(47, 86, 137);
+    --form-background-color: rgb(69, 69, 75);
 
 }
 
@@ -171,32 +154,6 @@ h2 {
 
 body {
     background-color: var(--main-bg-color);
-}
-
-header {
-    display: flex;
-    flex-direction: row-reverse;
-    height: 30px;
-    justify-content: flex-start;
-    background: var(--secondary-bg-color);
-    align-items: right;
-    -webkit-app-region: drag;
-    top: 0;
-    position: fixed;
-    width: 100%;
-}
-
-.option {
-    color: var(--hover-text-color);
-    font-size: 15px;
-    padding: 2px 6px;
-    cursor: pointer;
-    -webkit-app-region: no-drag;
-}
-
-
-.option:hover {
-    background: red;
 }
 
 ::-webkit-scrollbar {
