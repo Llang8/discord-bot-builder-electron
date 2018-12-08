@@ -9,18 +9,24 @@
 
 <h4 align="center">Build and manage Discord bots without touching any code.</h4>
 
-> Discord Bot Builder is a tool for easily creating and managing discord bots without needing to touch any code. This project is for people who want a discord bot on their server but do not want to learn how to code.
+> Discord Bot Builder is a tool for easily creating and managing discord bots without needing to touch any code. This project is for people who want a discord bot on their server but do not want to learn how to build one through programming.
 
 <p align="center"><img src="https://media.giphy.com/media/1BcB9KCN9hgtCITLrS/giphy.gif"></p>
 
 
-## Set up as a developer
+## How to Run
 
 #### Build Setup
 
 ``` bash
-npm install
-npm run dev
+# Clone this repository
+$ git clone https://github.com/Llang8/DiscordBotBuilder
+
+# Install the dependencies
+$ npm install
+
+# Run the app
+$ npm run dev
 
 
 ```
