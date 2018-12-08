@@ -14,5 +14,10 @@ export const store = new Vuex.Store({
       commands: [],
     },
     showActionCreation: false,
+    manageBots: {
+      showDeleteModal: false,
+      currentBot: ''
+    },
+    isNewAction: true
   }
 })

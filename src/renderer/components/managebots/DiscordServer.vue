@@ -6,6 +6,7 @@
             <i class='controls fas fa-play-circle' v-bind:style="[botRunning ? {color: 'grey'} : {color: 'green'}]" @click='startBot'><span class='controlstext'>Start bot</span></i>
             <i class='controls fas fa-stop-circle' v-bind:style="[botRunning ? {color: 'red'} : {color: 'grey'}]" @click='stopBot'><span class='controlstext'>Stop bot</span></i>
             <i class='controls fas fa-edit' style="color: grey" @click='editBot'><span class='controlstext'>Edit bot</span></i>
+            <i class='controls fas fa-trash' style="color: red;" id="deleteBot" @click='deleteBot'><span class='controlstext'>Delete bot</span></i>
         </div>
     </div>
 </template>
@@ -38,6 +39,10 @@ export default {
             this.$store.state.botConfig = this.botInfo;
             // Switch page to discord
             this.$router.push({path: 'discord'})
+        },
+        deleteBot() {
+            this.$store.state.manageBots.showDeleteModal = true;
+            this.$store.state.manageBots.currentBot = this.botInfo.botName;
         }
     }
 }
@@ -64,9 +69,10 @@ export default {
 }
 
 #controlBar {
-    left:5px;
+    left:0;
     bottom:0;
     position: absolute;
+    width: 100%;
 }
 
 .controls{
@@ -91,4 +97,9 @@ export default {
 .controls:hover .controlstext {
     visibility: visible;
 }
+
+#deleteBot {
+    float:right;
+}
+
 </style>

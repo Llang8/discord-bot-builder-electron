@@ -2,13 +2,20 @@
     <div>
         <h1>Manage Bots</h1>
         <br>
-        <div class='nobots' v-if='this.botNames == null'>
+        <div class='nobots' v-if='this.botNames.length == 0'>
             <i class="fas fa-frown" style="font-size: 100px;"></i>
             <br><br>
             <p>There are no bots to display</p>
         </div>
         <div v-for="(name, index) in botNames" style='display: inline;'>
             <discord-server :botInfo='botConfigs[index]'></discord-server>
+        </div>
+        <div class="bg-del-modal" v-if="showDeleteModal">
+            <div class="modal-del-content">
+                <p>Are you sure you want to delete this bot?</p>
+                <button class="btn" style="width: 100px; margin-right: 20px" @click="deleteBot">Yes</button>
+                <button class="btn" style="width: 100px;" @click="keepBot">No</button>
+            </div>
         </div>
     </div>
 </template>
@@ -26,6 +33,24 @@ export default {
     },
     components: {
         DiscordServer,
+    },
+    computed: {
+        showDeleteModal() {
+            return this.$store.state.manageBots.showDeleteModal;
+        }
+    },
+    methods: {
+        deleteBot() {
+            DiscordMethods.deleteBot(this.$store.state.manageBots.currentBot)
+            // Delete bot from botNames array so that dashboard is reloaded without switching pages
+            this.botNames.splice(this.botNames.indexOf(this.$store.state.manageBots.currentBot), 1)
+            console.log(this.botNames);
+            this.$store.state.manageBots.showDeleteModal = false;
+
+        },
+        keepBot() {
+            this.$store.state.manageBots.showDeleteModal = false;
+        }
     },
     created() {
         this.botNames = DiscordMethods.getBots();
@@ -65,6 +90,34 @@ li {
     height: 30%;
     width: 50%;
     margin: -15% 0 0 -25%;
+    text-align: center;
+}
+
+.bg-del-modal {
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.7);
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.modal-del-content {
+    width: 300px !important;
+    height: 100px !important;
+    position: relative;
+    background-color: var(--main-bg-color) !important;
+    border-radius: 5px;
+    border-width: 1px;
+    padding: 15px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     text-align: center;
 }
 </style>

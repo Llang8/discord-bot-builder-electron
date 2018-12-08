@@ -30,13 +30,31 @@ export default {
         return {
             name: '',
             description: '',
-            type: ''
+            type: '',
+        }
+    },
+    created() {
+        console.log(this.commandIndex)
+        if (!this.$store.state.isNewAction) {
+            var currCommand = this.$store.state.botConfig.commands[this.commandIndex];
+            var currAction = currCommand.actions[currCommand.actionIndex];
+            this.name = currAction.name;
+            this.description = currAction.description;
+            this.type = currAction.type;
         }
     },
     methods: {
         close() {
             this.$store.state.showActionCreation = false;
-            this.$store.state.botConfig.commands[this.commandIndex].actions.push({name: this.name, description: this.description, type: this.type});
+            if (this.$store.state.isNewAction) {
+                this.$store.state.botConfig.commands[this.commandIndex].actions.push({name: this.name, description: this.description, type: this.type});
+            } else {
+                var currCommand = this.$store.state.botConfig.commands[this.commandIndex];
+                currCommand.actions[currCommand.actionIndex] = {name: this.name, description: this.description, type: this.type};
+/*              this.$set(currCommand.actions[currCommand.actionIndex], 'name', this.name);
+                this.$set(currCommand.actions[currCommand.actionIndex], 'description', this.description);
+                this.$set(currCommand.actions[currCommand.actionIndex], 'type', this.type); */
+            }
         }
     },
 }

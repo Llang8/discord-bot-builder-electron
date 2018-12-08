@@ -22,7 +22,8 @@
             <button class="btn" id="editAction" @click='editAction'><i class="fas fa-edit"></i>  Edit</button>
             <button class="btn" id="deleteAction" @click='deleteAction'><i class="far fa-trash-alt"></i>  Delete</button>
         </div>
-        <select class="form-control select col-sm-8" id="selAction" size="9">
+        <label for="selAction" style="margin-top: 47px;">Actions</label>
+        <select class="form-control select col-sm-8" id="selAction" size="8">
             <option v-for="(action, index) in command.actions" @click="command.actionIndex = index">
                 <span>#{{index}}</span>
                 <span>{{action.name}} - </span>
@@ -46,11 +47,13 @@ export default {
     },
     methods: {
         createAction() {
+            this.$store.state.isNewAction = true;
             this.$store.state.showActionCreation = true;
             console.log(this.command)
         },
         editAction() {
-
+            this.$store.state.isNewAction = false;
+            this.$store.state.showActionCreation = true;
         },
         deleteAction() {
             var actionIndex = this.$store.state.botConfig.commands[this.index].actionIndex
@@ -62,13 +65,13 @@ export default {
 </script>
 <style>
 #action-toolbar{
-    padding-top: 20px;
+    padding-top: 25px;
     position: absolute;
     right: 15px;
 }
 
 #selAction {
-    margin-top: 56px;
+    margin-top: 0px;
     width: 100%
 }
 </style>
