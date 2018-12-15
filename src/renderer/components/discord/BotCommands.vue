@@ -1,9 +1,8 @@
 <template>
     <div class="form-group">
-    <label for="commands">Create commands</label>
-    <br><br>
-    <button class="btn" @click="createCommand">Create Command</button>
-    <button class="btn" @click="deleteCommand" style="margin-left: 5px;">Delete Command</button>
+    <h3>Create commands</h3>
+    <button type="button" class="btn" @click="createCommand">Create Command</button>
+    <button type="button" class="btn" @click="deleteCommand" style="margin-left: 5px;">Delete Command</button>
     <br><br>
     <select class="form-control select col-sm-4" id="selCommand" size="25">
         <option v-for="(command, index) in commands" @click="selectedCommand = index">{{command.commandName}}</option>
@@ -11,7 +10,7 @@
     <div v-for="(command, index) in commands">
         <command-setup v-if="selectedCommand == index" :index='index'></command-setup>
     </div>
-    <action-modal v-if='showModal == true' :commandIndex='selectedCommand'></action-modal>
+    <action-modal v-if='showModal == true' :index='selectedCommand' :modalType="'command'"></action-modal>
     </div>
 </template>
 <script>
@@ -21,7 +20,7 @@ import CommandSetup from './CommandSetup.vue'
 export default {
     data() {
         return {
-            selectedCommand: null,
+            selectedCommand: 0,
             commands: this.$store.state.botConfig.commands
         }
     },
@@ -65,20 +64,6 @@ export default {
 .select select { 
     padding:10px; 
     margin:-5px -20px -5px -5px; 
-}
-/* The Close Button */
-.close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
 }
 
 </style>

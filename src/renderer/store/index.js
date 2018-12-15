@@ -12,12 +12,14 @@ export const store = new Vuex.Store({
       token: '',
       commandIdentifier: '',
       commands: [],
+      events: []
     },
+    showPermissionsModal: false,
     showActionCreation: false,
     manageBots: {
       showDeleteModal: false,
       currentBot: ''
     },
-    isNewAction: true
+    isNewAction: true,
   }
 })

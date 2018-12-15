@@ -4,6 +4,7 @@
         <p>To manage already existing Discord bots visit the 'Manage Bots' page.</p>
         <bot-info v-if='discordPageNum == 1'></bot-info>
         <bot-commands v-if='discordPageNum == 2' style='max-height: 250px;'></bot-commands>
+        <bot-events v-if='discordPageNum == 3' style='max-height: 250px'></bot-events>
         <button @click='prevPage' class='btn btn-secondary pageControl' id='previous' v-if='discordPageNum != 1'>Previous</button>  
         <button @click='nextPage' class='btn btn-secondary pageControl' id='next' v-if='discordPageNum != 3'>Next</button>
         <button @click='createBot' class='btn btn-secondary pageControl' id='createBot'><i class="far fa-save"></i> Save Bot</button>
@@ -12,6 +13,7 @@
 <script>
 import BotInfo from './BotInfo'
 import BotCommands from './BotCommands'
+import BotEvents from './BotEvents'
 import {createBot} from '../../bothandlers/discord'
 
 export default {
@@ -21,7 +23,8 @@ export default {
     },
     components: {
         BotInfo,
-        BotCommands
+        BotCommands,
+        BotEvents
     },
     methods: {
         nextPage() {

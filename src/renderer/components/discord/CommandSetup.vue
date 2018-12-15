@@ -12,10 +12,10 @@
             <option>DM Only</option>
         </select>
         <br>
-        <label for="userPermissions">Necessary User Permission</label>
+        <label for="userPermissions">Necessary Permission</label>
         <select type="text" class="form-control" style="color: white;" id="commandRestrictions" v-model="command.userPermissions">
-            <option>None</option>
-            <option></option>
+            <!-- Make this a popup modal with checkboxes for each permission -->
+
         </select>
         <div class="btn-group" id="action-toolbar">
             <button class="btn" id="createAction" @click='createAction'><i class="far fa-plus-square"></i>  Create</button>
@@ -46,6 +46,9 @@ export default {
         }
     },
     methods: {
+        openPermissions() {
+            this.$store.state.showPermissionsModal = false;
+        },
         createAction() {
             this.$store.state.isNewAction = true;
             this.$store.state.showActionCreation = true;

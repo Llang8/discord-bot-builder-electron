@@ -1,7 +1,7 @@
 <template>
     <div class="bg-modal">
         <div class="modal-content">
-            <button class="btn close-modal" @click='close'><i class="fas fa-times"></i></button>
+            <button type="button" class="btn close-modal" @click='close'><i class="fas fa-times"></i></button>
             <div>
                 <form>
                     <div class="form-group">
@@ -16,48 +16,99 @@
                     <select class="form-control" id="selActionType" v-model="type">
                         <option>Message Server</option>
                         <option>Reply to User</option>
+                        <option>Reply in DMs</option>
+                        <option>Send Image</option>
                     </select>
                 </form>
-                <span style='color: lightgray;'>Press 'X' in top right to save action</span>
+                <br>
+                <form v-if="type === 'Send Image'">
+                    <button type="button" class="btn" @click="chooseFile" id="fileUpload">Upload Image</button>
+                    <p id="filePathDisplay"></p>
+                    <p style="color: red">This action type is not working yet.</p>
+                </form>
+                <form v-if="type === 'Reply to User' || type === 'Message Server'">
+                    <label for="description">Response</label>
+                    <input type="text" class="form-control" id="description" placeholder="Response" v-model="response">
+                    <label for="channelID" v-if="modalType === 'event'">Channel ID: </label>
+                    <input type="text" class="form-control" id="channelID" placeholder="ChannelID" v-model="channelID" v-if="modalType === 'event'">
+                </form>
+                <form v-if="type === 'Reply in DMs'">
+                    <label for="description">Response</label>
+                    <input type="text" class="form-control" id="description" placeholder="Response" v-model="response">
+                </form>
+                <br>
+                <button type="button" @click="close" class="btn">Save Action</button>
             </div>
         </div>
     </div>
 </template>
 <script>
+const {dialog} = require('electron').remote;
+const path = require('path');
 export default {
-    props: ['commandIndex'],
+    props: ['index', 'modalType'],
     data() {
         return {
             name: '',
             description: '',
             type: '',
+            filePath: '',
+            response: '',
+            channelID: '',
         }
     },
     created() {
-        console.log(this.commandIndex)
+        console.log(this.index)
         if (!this.$store.state.isNewAction) {
-            var currCommand = this.$store.state.botConfig.commands[this.commandIndex];
-            var currAction = currCommand.actions[currCommand.actionIndex];
-            this.name = currAction.name;
-            this.description = currAction.description;
-            this.type = currAction.type;
+            if (this.modalType === 'command') {
+                var currCommand = this.$store.state.botConfig.commands[this.index];
+                var currAction = currCommand.actions[currCommand.actionIndex];
+                this.name = currAction.name;
+                this.description = currAction.description;
+                this.type = currAction.type;
+                this.response = currAction.response;
+            } else if (this.modalType === 'event') {
+                var currEvent = this.$store.state.botConfig.events[this.index];
+                var currAction = currEvent.actions[currEvent.actionIndex];
+                this.name = currAction.name;
+                this.description = currAction.description;
+                this.type = currAction.type;
+                this.response = currAction.response;
+                this.channelID = currAction.channelID;
+            }
         }
     },
     methods: {
         close() {
             this.$store.state.showActionCreation = false;
-            if (this.$store.state.isNewAction) {
-                this.$store.state.botConfig.commands[this.commandIndex].actions.push({name: this.name, description: this.description, type: this.type});
-            } else {
-                var currCommand = this.$store.state.botConfig.commands[this.commandIndex];
-                currCommand.actions[currCommand.actionIndex] = {name: this.name, description: this.description, type: this.type};
-/*              this.$set(currCommand.actions[currCommand.actionIndex], 'name', this.name);
-                this.$set(currCommand.actions[currCommand.actionIndex], 'description', this.description);
-                this.$set(currCommand.actions[currCommand.actionIndex], 'type', this.type); */
+            console.log(this.modalType);
+            if (this.modalType === 'command') {
+                if (this.$store.state.isNewAction) {
+                    this.$store.state.botConfig.commands[this.index].actions.push({name: this.name, description: this.description, response: this.response, type: this.type, filePath: this.filePath});
+                } else {
+                    var currCommand = this.$store.state.botConfig.commands[this.index];
+                    currCommand.actions[currCommand.actionIndex] = {name: this.name, description: this.description, response: this.response, type: this.type, filePath: this.filePath};
+                }
+            } else if (this.modalType === 'event') {
+                if (this.$store.state.isNewAction) {
+                    console.log(this.index);
+                    console.log(this.$store.state.botConfig.events[this.index]);
+                    this.$store.state.botConfig.events[this.index].actions.push({name: this.name, description: this.description, response: this.response, type: this.type, filePath: this.filePath, channelID: this.channelID});
+                } else {
+                    var currEvent = this.$store.state.botConfig.events[this.index];
+                    currEvent.actions[currEvent.actionIndex] = {name: this.name, description: this.description, response: this.response, type: this.type, filePath: this.filePath, channelID: this.channelID};
+                }                
             }
+        },
+        chooseFile() {
+            console.log(__dirname + '/../../../../');
+            this.filePath = path.relative(__dirname + '/../../../../', dialog.showOpenDialog({properties: ['openFile']})[0]);
+            //console.log(this.filePath);
+            return false;
         }
     },
 }
+
 </script>
 <style>
 .bg-modal {
@@ -75,6 +126,7 @@ export default {
 }
 
 .modal-content {
+    z-index: 10;
     width: 500px !important;
     height: 500px !important;
     position: relative;
@@ -92,6 +144,18 @@ export default {
     right: 5px;
     top: 5px;
     position: absolute;
+    cursor: pointer;
+}
+
+/* The Close Button */
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover {
     cursor: pointer;
 }
 </style>
