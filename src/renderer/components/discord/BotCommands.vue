@@ -1,6 +1,6 @@
 <template>
     <div class="form-group">
-    <h3>Create commands</h3>
+    <h3>Create Commands</h3>
     <button type="button" class="btn" @click="createCommand">Create Command</button>
     <button type="button" class="btn" @click="deleteCommand" style="margin-left: 5px;">Delete Command</button>
     <br><br>

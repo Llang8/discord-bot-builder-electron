@@ -59,6 +59,7 @@ export default {
     },
     created() {
         console.log(this.index)
+        /* If action already exists pull information from the global store */
         if (!this.$store.state.isNewAction) {
             if (this.modalType === 'command') {
                 var currCommand = this.$store.state.botConfig.commands[this.index];
@@ -79,9 +80,12 @@ export default {
         }
     },
     methods: {
+        // Saves the information from the current action in the global store on close
         close() {
             this.$store.state.showActionCreation = false;
             console.log(this.modalType);
+
+            // If the modalType is set to 'command' the info must be pushed to the current command
             if (this.modalType === 'command') {
                 if (this.$store.state.isNewAction) {
                     this.$store.state.botConfig.commands[this.index].actions.push({name: this.name, description: this.description, response: this.response, type: this.type, filePath: this.filePath});
@@ -89,6 +93,7 @@ export default {
                     var currCommand = this.$store.state.botConfig.commands[this.index];
                     currCommand.actions[currCommand.actionIndex] = {name: this.name, description: this.description, response: this.response, type: this.type, filePath: this.filePath};
                 }
+            // If the modalType is set to 'event' the info must be pushed to the current event
             } else if (this.modalType === 'event') {
                 if (this.$store.state.isNewAction) {
                     console.log(this.index);
@@ -100,6 +105,7 @@ export default {
                 }                
             }
         },
+        // This method is for selecting the file path for images to send to the discord server
         chooseFile() {
             console.log(__dirname + '/../../../../');
             this.filePath = path.relative(__dirname + '/../../../../', dialog.showOpenDialog({properties: ['openFile']})[0]);

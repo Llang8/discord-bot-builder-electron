@@ -21,6 +21,7 @@
 </template>
 <script>
 import DiscordServer from './DiscordServer'
+import firebase from 'firebase'
 var fs = require('fs');
 const DiscordMethods = require('../../bothandlers/discord');
 
@@ -41,10 +42,11 @@ export default {
     },
     methods: {
         deleteBot() {
-            DiscordMethods.deleteBot(this.$store.state.manageBots.currentBot)
+            DiscordMethods.deleteBot(this.$store.state.manageBots.currentBot, !this.$store.state.botConfig.backup, this.$store.state.user.uid);
             // Delete bot from botNames array so that dashboard is reloaded without switching pages
-            this.botNames.splice(this.botNames.indexOf(this.$store.state.manageBots.currentBot), 1)
-            console.log(this.botNames);
+            var index = this.botNames.indexOf(this.$store.state.manageBots.currentBot);
+            this.botNames.splice(index, 1);
+            this.botConfigs.splice(index, 1);
             this.$store.state.manageBots.showDeleteModal = false;
 
         },
@@ -53,13 +55,24 @@ export default {
         }
     },
     created() {
-        this.botNames = DiscordMethods.getBots();
+        this.botNames = DiscordMethods.getBots(this.$store.state.user.uid);
         for( var i = 0; i < this.botNames.length; i++) {
             var file = fs.readFileSync(__dirname + '/../../local/discord/' + this.botNames[i] + '/config.json', 'utf8');
             this.botConfigs[i] = JSON.parse(file);
         }
+        var ctx = this;
+        if (this.$store.state.isUser) {
+            firebase.database().ref('/users/' + this.$store.state.user.uid + '/bots').once('value').then(function(snapshot) {
+                console.log(snapshot.val());
+                ctx.botNames = ctx.botNames.concat(Object.keys(snapshot.val()));
+                Object.keys(snapshot.val()).forEach((key) => {
+                    console.log(key);
+                    ctx.botConfigs.push(snapshot.val()[key]);
+                });
+            });
+        }
         if ( this.botNames.length == 0) {
-            this.botNames = null;
+            this.botNames = [];
         }
     }
 }

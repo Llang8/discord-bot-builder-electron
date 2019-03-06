@@ -32,7 +32,7 @@ function createWindow () {
     mainWindow = null
   })
     
-
+  mainWindow.webContents.openDevTools()
 }
 
 app.on('ready', () => {

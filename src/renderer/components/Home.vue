@@ -15,7 +15,7 @@ export default {
     return {
       msg: 'Welcome to Simple bot builder'
     }
-  }
+  },
 }
 </script>
 

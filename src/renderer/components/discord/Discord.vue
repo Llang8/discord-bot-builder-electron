@@ -34,7 +34,7 @@ export default {
             this.$store.state.discordPageNum--;
         },
         createBot() {
-            createBot(this.$store.state.botConfig);
+            createBot(this.$store.state.botConfig, this.$store.state.user.uid);
         }
     },
     computed: {

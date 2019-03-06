@@ -1,28 +1,39 @@
 <template>
     <div id='app'>
+    
+    <login v-if="!loggedIn" class="login"></login>
+
+    <!-- Sidenav wrapper -->
     <div id='mySidenav' class='sidenav'>
         <a href='javascript:void(0)' @click='toggleNav' >
             <i v-if='navOpen' class='closebtn fas fa-arrow-circle-left'></i>
             <i v-if='!navOpen' class=' fas fa-arrow-circle-right'></i>
         </a>
+        <!-- Home link -->
         <router-link to='/' v-bind:style="[this.$router.currentRoute.path == '/' ? {'color': 'var(--hover-text-color)'} : {'color': 'var(--main-text-color)'}]">
             <i class='fas fa-home'></i><span v-if='navOpen'> Home</span>
         </router-link>
+        <!-- Discord link -->
         <router-link to='/discord' v-bind:style="[this.$router.currentRoute.path == '/discord' ? {'color': 'var(--hover-text-color)'} : {'color': 'var(--main-text-color)'}]">
             <i class='fab fa-discord'></i></i><span v-if='navOpen'> Discord</span>
         </router-link>
+        <!-- ManageBots Dashboard -->
         <router-link to='/managebots' v-bind:style="[this.$router.currentRoute.path == '/managebots' ? {'color': 'var(--hover-text-color)'} : {'color': 'var(--main-text-color)'}]">
             <i class='fas fa-cog'></i><span v-if='navOpen'> Manage Bots</span>
         </router-link>
+        <!-- Profile page -->
+        <router-link v-if="isUser" to='/profile' v-bind:style="[this.$router.currentRoute.path == '/profile' ? {'color': 'var(--hover-text-color)'} : {'color': 'var(--main-text-color)'}]">
+            <i class="fas fa-user-circle"></i><span v-if='navOpen'> Profile</span>
+        </router-link>
     </div>
-
-    <!-- Add all page content inside this div if you want the side nav to push page content to the right (not used if you only want the sidenav to sit on top of the page -->
+    <!-- Use router view component to view selected page -->
     <div id='main'>
         <router-view style='color: white;'></router-view>
     </div>
     </div>
 </template>
 <script>
+import Login from './components/Login.vue'
 
 export default {
     data() {
@@ -59,25 +70,66 @@ export default {
             }
         }
 
+    },
+    computed: {
+        loggedIn() {
+            return this.$store.state.loggedIn;
+        },
+        isUser() {
+            return this.$store.state.isUser;
+        }
+    },
+    components: {
+        Login
     }
 
 }
 </script>
 <style>
+/* Import bootstrap */
 @import url('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css');
+
+/* Import Icons */
 @import url('https://use.fontawesome.com/releases/v5.5.0/css/all.css');
-/* The side navigation menu */
+
+/* Import Fonts */
+@import url('https://fonts.googleapis.com/css?family=Overpass|Chivo');
+
+/* Global variables */
+:root {
+    --main-bg-color: #222629;
+    --secondary-bg-color: #474B4F;
+    --main-text-color: #6B6E70;
+    --hover-text-color: white;
+    --main-header-color: rgb(50, 148, 194);
+    --secondary-header-color: rgb(47, 86, 137);
+    --form-background-color: rgb(69, 69, 75);
+
+}
+
+.login {
+    position: fixed;
+    z-index: 1000;
+    height: 100%;
+    width: 100%;
+    background: var(--main-bg-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+}
+
 .sidenav {
-    height: 100%; /* 100% Full-height */
-    width: 50px; /* 0 width - change this with JavaScript */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Stay on top */
-    top: 0; /* Stay at the top */
+    height: 100%;
+    width: 50px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
     left: 0;
     background-color: var(--secondary-bg-color);
-    overflow-x: hidden; /* Disable horizontal scroll */
-    padding-top: 10px; /* Place content 60px from the top */
-    transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+    overflow-x: hidden;
+    padding-top: 10px;
+    transition: 0.5s;
 }
 
 /* The navigation menu links */
@@ -91,12 +143,10 @@ export default {
     text-align: center;
 }
 
-/* When you mouse over the navigation links, change their color */
 .sidenav a:hover {
     color: var(--hover-text-color);
 }
 
-/* Position and style the close button (top right corner) */
 .sidenav .closebtn {
     position: absolute;
     top: 0;
@@ -107,22 +157,22 @@ export default {
     transition: .03s;
 }
 
-/* Position and style the close button (top right corner) */
+/* Position and style the open button (top right corner) */
 .sidenav .openbtn {
     position: absolute;
     top: 0;
     right: 0px;
     font-size: 24px;
     margin-left: 50px;
-    padding: 8px 8px 8px 8px;
+    padding: 8px;
     transition: .03s;
     text-align: center;
 }
 
-/* Style page content - use this if you want to push the page content to the right when you open the side navigation */
+/* Styles page content */
 #main {
     transition: margin-left .5s;
-    padding: 20px;
+    padding: 0px 20px 20px 20px;
     margin-left: 50px;
 }
 
@@ -131,30 +181,30 @@ export default {
     text-shadow: 4px 3px 0 #7A7A7A;
 }
 
-:root {
-    --main-bg-color: #222629;
-    --secondary-bg-color: #474B4F;
-    --main-text-color: #6B6E70;
-    --hover-text-color: white;
-    --main-header-color: rgb(50, 148, 194);
-    --secondary-header-color: rgb(47, 86, 137);
-    --form-background-color: rgb(69, 69, 75);
-
-}
-
 h1 {
     color: var(--main-header-color);
+    font-size: 35px;
+    font-family: 'Chivo';
 }
 
 h2 {
     color: var(--secondary-header-color);
-    font-size: 40px;
+    font-size: 25px;
+    font-family: 'Chivo';
 }
 
 body {
     background-color: var(--main-bg-color);
+    font-family: 'Overpass';
 }
 
+.form-control {
+    border: 0px;
+    box-shadow: inset -3px 3px 2px rgba(0,0,0,.2);
+    text-shadow: 2px 2px rgba(0,0,0,.2);
+}
+
+/* Set custom scrollbar */
 ::-webkit-scrollbar {
         background-color: black;
         width: .8em

@@ -12,7 +12,8 @@ export const store = new Vuex.Store({
       token: '',
       commandIdentifier: '',
       commands: [],
-      events: []
+      events: [],
+      backup: false
     },
     showPermissionsModal: false,
     showActionCreation: false,
@@ -20,6 +21,14 @@ export const store = new Vuex.Store({
       showDeleteModal: false,
       currentBot: ''
     },
+    runningBots: [],
     isNewAction: true,
+    loggedIn: false,
+    isUser: false,
+    user: {
+      email: '',
+      uid: '',
+      emailVerified: false
+    }
   }
 })
