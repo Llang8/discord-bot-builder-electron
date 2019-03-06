@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "author": "Lucas Lang <32493084+Llang8@users.noreply.github.com>",
   "description": "An electron-vue project",
-  "license": null,
+  "license": "",
   "main": "./dist/electron/main.js",
   "scripts": {
     "build": "node .electron-vue/build.js && electron-builder",
@@ -51,13 +51,15 @@
     }
   },
   "dependencies": {
-    "vue": "^2.5.16",
     "axios": "^0.18.0",
+    "discord.js": "^11.4.2",
+    "firebase": "^5.7.2",
+    "grpc": "^1.17.0",
+    "vue": "^2.5.16",
     "vue-electron": "^1.0.6",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1",
-    "vuex-electron": "^1.0.0",
-    "discord.js": "^11.4.2"
+    "vuex-electron": "^1.0.0"
   },
   "devDependencies": {
     "ajv": "^6.5.0",
