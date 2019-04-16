@@ -44,6 +44,17 @@ $ npm run dev
 
 ```
 
+### TODO
 
+- [ ] Fix issue when logging in where the first attempt ALWAYS throws an error
+- [ ] Confirm functionality of sign up feature
+- [ ] Fix issue where the local store file structure is being ignored by Github (Github should still ignore any bot configs stored locally)
+- [ ] Merge backend code to main repo
+- [ ] Provide instructions for running backend with frontend
+- [ ] Host backend
+- [ ] Fix CSS for navigation on the bot builder page
+- [ ] Add functionality to "Command Restrictions" and "Necessary Permission" input fields.
+- [ ] Improve User Profile page
+- [ ] Add indepth instructions on actually using the bot builder (Either on home page or link to it on home page)
 
 ---
