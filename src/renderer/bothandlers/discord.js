@@ -31,6 +31,7 @@ export function runBot(botName, isLocal, userId){
         var bot = new DiscordBot();
         bot.login();
         return bot;
+    // If bot isn't locally stored it should be run by the backend.
     } else {
         // Tell the backend server to run the bot
         var request = new XMLHttpRequest();

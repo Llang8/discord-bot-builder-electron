@@ -25,10 +25,25 @@ $ git clone https://github.com/Llang8/DiscordBotBuilder
 # Install the dependencies
 $  npm install --runtime=electron --target=2.0.4
 
+# Create a config.json file in the main directory and paste in this:
+{
+    "firebase": {
+        "apiKey": "YOUR_API_KEY",
+        "authDomain": "YOUR_AUTH_DOMAIN.firebaseapp.com",
+        "databaseURL": "https://YOUR_AUTH_DOMAIN.firebaseio.com",
+        "projectId": "YOUR_PROJECT_ID",
+        "storageBucket": "YOUR_STORAGE_BUCKET_LINK",
+        "messagingSenderId": "YOUR_MESSAGING_SENDER_ID"
+    }
+}
+    
+
 # Run the app
 $ npm run dev
 
 
 ```
+
+
 
 ---
