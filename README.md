@@ -23,7 +23,7 @@
 $ git clone https://github.com/Llang8/DiscordBotBuilder
 
 # Install the dependencies
-$ npm install
+$  npm install --runtime=electron --target=2.0.4
 
 # Run the app
 $ npm run dev
