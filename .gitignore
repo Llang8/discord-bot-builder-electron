@@ -9,5 +9,6 @@ npm-debug.log.*
 thumbs.db
 !.gitkeep
 src/renderer/local/discord/*
+!src/renderer/local/discord
 Capture.PNG
 config.json
