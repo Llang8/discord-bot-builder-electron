@@ -1,6 +1,7 @@
 import firebase from 'firebase'
 import DiscordBot from '../botcode/discord/main';
 var fs = require('fs');
+var appConfig = require('../../../config.json');
 export function createBot(botObject, userId) {
     // If the bot is supposed to be saved to database
     console.log(botObject);
@@ -41,7 +42,8 @@ export function runBot(botName, isLocal, userId){
                 // To get the response use request.responseText;
             }
         }
-        request.open("GET", "http://localhost:8000/startBot/" + userId + "/" + botName);
+        console.log(appConfig);
+        request.open("GET", `${appConfig.backendUrl}startBot/${userId}/${botName}`);
         request.send(null);
     }
 }
@@ -59,7 +61,7 @@ export function stopBot(botName, bot, userId) {
                 // To get the response use request.responseText;
             }
         }
-        request.open("GET", "http://localhost:8000/stopBot/" + userId + "/" + botName);
+        request.open("GET", `${appConfig.backendUrl}stopBot/${userId}/${botName}`);
         request.send(null);
     }
 }

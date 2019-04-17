@@ -34,7 +34,8 @@ $  npm install --runtime=electron --target=2.0.4
         "projectId": "YOUR_PROJECT_ID",
         "storageBucket": "YOUR_STORAGE_BUCKET_LINK",
         "messagingSenderId": "YOUR_MESSAGING_SENDER_ID"
-    }
+    },
+    "backendUrl": "BACKEND_HOST"
 }
     
 
@@ -43,10 +44,18 @@ $ npm run dev
 
 
 ```
+### Technologies Used
+
+<b>Built with</b>
+- [Electron](https://electron.atom.io)
+- [VueJS](https://vuejs.org/)
+- [Firebase](https://firebase.google.com/)
+- [Discord.js](https://discord.js.org/#/)
 
 ### TODO
 
 - [ ] Fix issue when logging in where the first attempt ALWAYS throws an error
+- [ ] Fix issue where bots that are running on hosted server cannot be stopped
 - [ ] Confirm functionality of sign up feature
 - [ ] Fix issue where the local store file structure is being ignored by Github (Github should still ignore any bot configs stored locally)
 - [ ] Merge backend code to main repo
