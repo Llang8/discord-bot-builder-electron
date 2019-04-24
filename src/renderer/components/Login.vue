@@ -61,6 +61,7 @@ export default {
         },
         signUp() {
             console.log(firebase);
+            /* Attempt to create user with firebase */
             firebase.auth().createUserWithEmailAndPassword(this.email, this.password).then(
                 function(user) {
                     console.log(user);

@@ -55,6 +55,9 @@ $ npm run dev
 ### TODO
 
 - [ ] Fix issue when logging in where the first attempt ALWAYS throws an error
+- [ ] Eliminate bootstrap dependency for form stylings
+- [ ] Setup popup modal for necessary user permissions
+- [ ] Fix image uploading and sending
 - [ ] Fix issue where bots that are running on hosted server cannot be stopped
 - [ ] Confirm functionality of sign up feature
 - [ ] Fix issue where the local store file structure is being ignored by Github (Github should still ignore any bot configs stored locally)

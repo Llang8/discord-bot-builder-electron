@@ -1,46 +1,48 @@
 <template>
-    <div class="bg-modal">
-        <div class="modal-content">
-            <button type="button" class="btn close-modal" @click='close'><i class="fas fa-times"></i></button>
-            <div>
-                <form>
-                    <div class="form-group">
-                        <label>Action Name</label>
-                        <input type="text" class="form-control" placeholder="Name" v-model="name">
-                    </div>
-                    <div class="form-group">
-                        <label for="description">Action Description</label>
-                        <input type="text" class="form-control" id="description" placeholder="Description" v-model="description">
-                    </div>
-                    <label for="selActionType">Select Action Type</label>
-                    <select class="form-control" id="selActionType" v-model="type">
-                        <option>Message Server</option>
-                        <option>Reply to User</option>
-                        <option>Reply in DMs</option>
-                        <option>Send Image</option>
-                    </select>
-                </form>
-                <br>
-                <form v-if="type === 'Send Image'">
-                    <button type="button" class="btn" @click="chooseFile" id="fileUpload">Upload Image</button>
-                    <p id="filePathDisplay"></p>
-                    <p style="color: red">This action type is not working yet.</p>
-                </form>
-                <form v-if="type === 'Reply to User' || type === 'Message Server'">
-                    <label for="description">Response</label>
-                    <input type="text" class="form-control" id="description" placeholder="Response" v-model="response">
-                    <label for="channelID" v-if="modalType === 'event'">Channel ID: </label>
-                    <input type="text" class="form-control" id="channelID" placeholder="ChannelID" v-model="channelID" v-if="modalType === 'event'">
-                </form>
-                <form v-if="type === 'Reply in DMs'">
-                    <label for="description">Response</label>
-                    <input type="text" class="form-control" id="description" placeholder="Response" v-model="response">
-                </form>
-                <br>
-                <button type="button" @click="close" class="btn">Save Action</button>
-            </div>
+<!-- BEGIN MODAL -->
+<div class="bg-modal">
+    <!-- MODAL CONTENT WRAPPER -->
+    <div class="modal-content">
+        <button type="button" class="btn close-modal" @click='close'><i class="fas fa-times"></i></button>
+        <div>
+            <form>
+                <div class="form-group">
+                    <label>Action Name</label>
+                    <input type="text" class="form-control" placeholder="Name" v-model="name">
+                </div>
+                <div class="form-group">
+                    <label for="description">Action Description</label>
+                    <input type="text" class="form-control" id="description" placeholder="Description" v-model="description">
+                </div>
+                <label for="selActionType">Select Action Type</label>
+                <select class="form-control" id="selActionType" v-model="type">
+                    <option>Message Server</option>
+                    <option>Reply to User</option>
+                    <option>Reply in DMs</option>
+                    <option>Send Image</option>
+                </select>
+            </form>
+            <br>
+            <form v-if="type === 'Send Image'">
+                <button type="button" class="btn" @click="chooseFile" id="fileUpload">Upload Image</button>
+                <p id="filePathDisplay"></p>
+                <p style="color: red">This action type is not working yet.</p>
+            </form>
+            <form v-if="type === 'Reply to User' || type === 'Message Server'">
+                <label for="description">Response</label>
+                <input type="text" class="form-control" id="description" placeholder="Response" v-model="response">
+                <label for="channelID" v-if="modalType === 'event'">Channel ID: </label>
+                <input type="text" class="form-control" id="channelID" placeholder="ChannelID" v-model="channelID" v-if="modalType === 'event'">
+            </form>
+            <form v-if="type === 'Reply in DMs'">
+                <label for="description">Response</label>
+                <input type="text" class="form-control" id="description" placeholder="Response" v-model="response">
+            </form>
+            <br>
+            <button type="button" @click="close" class="btn">Save Action</button>
         </div>
     </div>
+</div> <!-- END MODAL -->
 </template>
 <script>
 const {dialog} = require('electron').remote;

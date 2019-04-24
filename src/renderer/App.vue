@@ -1,6 +1,7 @@
 <template>
     <div id='app'>
     
+    <!-- Show login page if not logged in (Hide if "Continue without logging in" is selected as well) -->
     <login v-if="!loggedIn" class="login"></login>
 
     <!-- Sidenav wrapper -->
@@ -38,13 +39,19 @@ import Login from './components/Login.vue'
 export default {
     data() {
         return {
+            /* Controls viewing of extended nav */
             navOpen: false
         }
     },
     methods: {
+        /*  Controls expanding and minimizing the navigation.
+        *   When arrow on navbar is selected this function is
+        *   called. toggleNav() will minimize the navbar when
+        *   navOpen is set to true and maximize when false.
+        */
         toggleNav() {
+            /* If nav is open shrink icon sizes and bar; set navOpen to false */
             if(this.navOpen) {
-
                 var elements = document.querySelectorAll('.sidenav a');
                 for( var i = 0; i < elements.length; i++) {
                     elements[i].style.fontSize = '24px';
@@ -54,6 +61,7 @@ export default {
                 document.getElementById('mySidenav').style.width = '50px';
                 document.getElementById('main').style.marginLeft = '50px';
                 this.navOpen = false;
+            /* If nav is closed expand icon sizes and bar; set navOpen to true */
             } else {
 
                 var elements = document.querySelectorAll('.sidenav a');
@@ -72,9 +80,16 @@ export default {
 
     },
     computed: {
+        /* Function returns property 'loggedIn' from global store
+        *  Logged in keeps track of whether user is logged in (or has continued without logging in) or not.
+        */
         loggedIn() {
             return this.$store.state.loggedIn;
         },
+        /* Function returns property 'isUser' from global store
+        *  isUser keeps track of whether or not the user is logged into
+        *  an account or is using the program without logging in.
+        */
         isUser() {
             return this.$store.state.isUser;
         }
@@ -118,6 +133,8 @@ export default {
     align-items: center;
     top: 0;
 }
+
+/* BEGIN SIDENAV STYLES */
 
 .sidenav {
     height: 100%;
@@ -169,6 +186,8 @@ export default {
     text-align: center;
 }
 
+/* END SIDENAV STYLES */
+
 /* Styles page content */
 #main {
     transition: margin-left .5s;
@@ -202,6 +221,24 @@ body {
     border: 0px;
     box-shadow: inset -3px 3px 2px rgba(0,0,0,.2);
     text-shadow: 2px 2px rgba(0,0,0,.2);
+}
+
+h1, h2 {
+  font-weight: normal;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  display: inline-block;
+  margin: 0 10px;
+}
+
+a {
+  color: #42b983;
 }
 
 /* Set custom scrollbar */
