@@ -1,7 +1,10 @@
 <template>
     <div id='discordServer'>
+        <!-- Bot name and description -->
         <h3 id='serverName'>{{botInfo.botName}}</h3>
         <p id= 'serverDescription'>{{botInfo.botDescription}}</p>
+
+        <!-- Controls and info for bot -->
         <div id='controlBar'>
             <i class='controls fas fa-play-circle' v-bind:style="[botRunning ? {color: 'grey'} : {color: 'green'}]" @click='startBot'><span class='controlstext'>Start bot</span></i>
             <i class='controls fas fa-stop-circle' v-bind:style="[botRunning ? {color: 'red'} : {color: 'grey'}]" @click='stopBot'><span class='controlstext'>Stop bot</span></i>
@@ -15,20 +18,23 @@
 <script>
 const DiscordMethods = require('../../bothandlers/discord');
 
-export default {
+export default { 
     props: ['botInfo'],
     data() {
         return {
+            /* Keeps track of if bot is running */
             botRunning: false,
         }
     },
     methods: {
+        /* Send bot information to bot handler to start */
         startBot() {
             if (!this.botRunning) {
                 this.botRunning = true;
                 this.$store.state.runningBots.push(DiscordMethods.runBot(this.botInfo.botName, !this.botInfo.backup, this.$store.state.user.uid));
             }
         },
+        /* Send bot informastion to bot handler to stop */
         stopBot() {
             if (this.botRunning) {
                 this.botRunning = false;
@@ -39,12 +45,14 @@ export default {
                 console.log('Bot ' + this.botInfo.botName + ' stopped');
             }
         },
+        /* Fills global store with this bot's info for editing */
         editBot() {
             console.log(this.botInfo);
             this.$store.state.botConfig = this.botInfo;
             // Switch page to discord
             this.$router.push({path: 'discord'})
         },
+        /* Opens deletion confirmation */
         deleteBot() {
             this.$store.state.manageBots.showDeleteModal = true;
             this.$store.state.manageBots.currentBot = this.botInfo.botName;

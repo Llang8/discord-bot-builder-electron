@@ -1,4 +1,5 @@
 <template>
+    <!-- First page for bot creation and editing -->
     <form>
         <div class="form-group">
             <label class="info-label" for="botName">Bot Name</label>
@@ -23,6 +24,7 @@ export default {
         }
     },
     methods: {
+        /* Checks if user is logged in, if so allow user to save to cloud else print error */
         checkLogin() {
             if (!this.$store.state.isUser) {
                 document.getElementById("backup").checked = false;
@@ -36,6 +38,7 @@ export default {
     components: {
     },
     computed: {
+        /* Gets current bot's config from global store */
         botConfig() {
             return this.$store.state.botConfig
         }

@@ -1,5 +1,5 @@
 <template>
-  <div id="home">
+  <div id="home"> <!-- TODO: Update home page with information on how to use bot builder -->
     <img style="height: 100px; width: 100px;" src="../assets/icons/png/logo.png"> 
     <h1>{{ msg }}</h1>
     <h2>Check out our website!</h2>

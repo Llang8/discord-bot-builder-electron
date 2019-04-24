@@ -2,14 +2,18 @@
     <div>
         <h1>Manage Bots</h1>
         <br>
+        <!-- IF there are no bots show message -->
         <div class='nobots' v-if='this.botNames.length == 0'>
             <i class="fas fa-frown" style="font-size: 100px;"></i>
             <br><br>
             <p>There are no bots to display</p>
         </div>
+        <!-- Create a DiscordServer component for each bot -->
         <div v-for="(name, index) in botNames" style='display: inline;'>
             <discord-server :botInfo='botConfigs[index]'></discord-server>
         </div>
+
+        <!-- Code for confirm deletion modal -->
         <div class="bg-del-modal" v-if="showDeleteModal">
             <div class="modal-del-content">
                 <p>Are you sure you want to delete this bot?</p>
@@ -41,6 +45,7 @@ export default {
         }
     },
     methods: {
+        /* Attempt to delete bot with Discord bot handler */
         deleteBot() {
             DiscordMethods.deleteBot(this.$store.state.manageBots.currentBot, !this.$store.state.botConfig.backup, this.$store.state.user.uid);
             // Delete bot from botNames array so that dashboard is reloaded without switching pages
@@ -50,17 +55,21 @@ export default {
             this.$store.state.manageBots.showDeleteModal = false;
 
         },
+        /* If user selects cancel on model keep bot */
         keepBot() {
             this.$store.state.manageBots.showDeleteModal = false;
         }
     },
+    /* Code to run when component is created */
     created() {
         this.botNames = DiscordMethods.getBots(this.$store.state.user.uid);
+        /* Get local store bots */
         for( var i = 0; i < this.botNames.length; i++) {
             var file = fs.readFileSync(__dirname + '/../../local/discord/' + this.botNames[i] + '/config.json', 'utf8');
             this.botConfigs[i] = JSON.parse(file);
         }
         var ctx = this;
+        /* If user is logged in get bot configs from firebase */
         if (this.$store.state.isUser) {
             firebase.database().ref('/users/' + this.$store.state.user.uid + '/bots').once('value').then(function(snapshot) {
                 console.log(snapshot.val());

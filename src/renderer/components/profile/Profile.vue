@@ -1,4 +1,4 @@
-<template>
+<template> <!-- TODO: Show user info and allow editing -->
     <div id="auth">
         <h1>User Profile</h1>
         <h2>{{ user.email }}</h2>
@@ -12,6 +12,7 @@ export default {
         }
     },
     computed: {
+        /* Get user info from store */
         user() {
             console.log(this.$store.state.user);
             return this.$store.state.user;

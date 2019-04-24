@@ -1,4 +1,5 @@
-<template>
+<template> <!-- User Permissions Modal -->
+    <!-- TODO: SETUP THIS TEMPLATE AND IMPLEMENT ON COMMANDSETUP COMPONENT -->
     <div class="bg-permissions-modal">
         <div class="modal-permissions-content">
             <button class="btn close-modal" @click='close'><i class="fas fa-times"></i></button>

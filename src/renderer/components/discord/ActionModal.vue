@@ -6,14 +6,17 @@
         <button type="button" class="btn close-modal" @click='close'><i class="fas fa-times"></i></button>
         <div>
             <form>
+                <!-- Action Name Editor -->
                 <div class="form-group">
                     <label>Action Name</label>
                     <input type="text" class="form-control" placeholder="Name" v-model="name">
                 </div>
+                <!-- Action Description Editor -->
                 <div class="form-group">
                     <label for="description">Action Description</label>
                     <input type="text" class="form-control" id="description" placeholder="Description" v-model="description">
                 </div>
+                <!-- Action Type Selection -->
                 <label for="selActionType">Select Action Type</label>
                 <select class="form-control" id="selActionType" v-model="type">
                     <option>Message Server</option>
@@ -23,17 +26,20 @@
                 </select>
             </form>
             <br>
+            <!-- TODO: Fix sending image -->
             <form v-if="type === 'Send Image'">
                 <button type="button" class="btn" @click="chooseFile" id="fileUpload">Upload Image</button>
                 <p id="filePathDisplay"></p>
                 <p style="color: red">This action type is not working yet.</p>
             </form>
+            <!-- If selected type is reply or message show proper form -->
             <form v-if="type === 'Reply to User' || type === 'Message Server'">
                 <label for="description">Response</label>
                 <input type="text" class="form-control" id="description" placeholder="Response" v-model="response">
                 <label for="channelID" v-if="modalType === 'event'">Channel ID: </label>
                 <input type="text" class="form-control" id="channelID" placeholder="ChannelID" v-model="channelID" v-if="modalType === 'event'">
             </form>
+            <!-- If selected type is reply show proper form -->
             <form v-if="type === 'Reply in DMs'">
                 <label for="description">Response</label>
                 <input type="text" class="form-control" id="description" placeholder="Response" v-model="response">
