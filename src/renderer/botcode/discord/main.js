@@ -1,5 +1,6 @@
 const Discord = require('discord.js');
 
+
 class Bot {
     // Sets up the discord bot
     constructor(config) {
