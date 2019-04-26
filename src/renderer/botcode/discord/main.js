@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
 
 
-class Bot {
+export default class Bot {
     // Sets up the discord bot
     constructor(config) {
         this.client = new Discord.Client();
@@ -49,20 +49,20 @@ class Bot {
     runAction(action, msg, channel) {
         switch(action.type) {
             case 'Reply to User':
-            msg.reply( action.response);
-            break;
+                msg.reply( action.response);
+                break;
             case 'Message Server':
-            channel.send( action.response);
-            break;
+                channel.send( action.response);
+                break;
             case 'Send Image':
-            console.log(action.filePath)
-            channel.send('Test', {
-                files: ['./Capture.png']
-            }).then(console.log);
-            break;
+                console.log(action.filePath)
+                channel.send('Test', {
+                    files: ['./Capture.png']
+                }).then(console.log);
+                break;
             case 'Reply in DMs':
-            msg.author.send(action.response);
-            break;
+                msg.author.send(action.response);
+                break;
         }
     }
 
@@ -72,6 +72,7 @@ class Bot {
                 case 'User Joins Server':
                     this.client.on('guildMemberAdd', member => {
                         event.actions.forEach(action => {
+                          // TODO: ALLOW USER TO SET CHANNEL ID TO MESSAGE
                           runAction(action, null,  member.guild.channels.get('520386682315472907'));
                         })
                     });
@@ -80,7 +81,3 @@ class Bot {
         });
     }
 }
-
-export default { 
-  Bot
-};

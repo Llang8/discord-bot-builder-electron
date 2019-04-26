@@ -1,5 +1,6 @@
 import firebase from 'firebase'
-import DiscordBot from '../botcode/discord/main';
+import Bot from '../botcode/discord/main';
+
 var fs = require('fs');
 var appConfig = require('../../../config.json');
 export function createBot(botObject, userId) {
@@ -28,8 +29,9 @@ export function createBot(botObject, userId) {
  
 export function runBot(botName, isLocal, userId){
     if ( isLocal) {
-        config = require(__dirname + '/../local/discord/' + botName + '/config.json')
-        var bot = new DiscordBot();
+        console.log(botName)
+        var config = require(__dirname + '/../local/discord/' + botName + '/config.json')
+        var bot = new Bot(config);
         bot.login();
         return bot;
     // If bot isn't locally stored it should be run by the backend.
